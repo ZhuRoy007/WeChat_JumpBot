@@ -3,11 +3,12 @@ import numpy as np
 import random
 import wda
 import time
+import json
 
 wda.DEBUG = False  # default False
 wda.HTTP_TIMEOUT = 600.0  # default 60.0 seconds
 
-c = wda.Client('http://169.254.192.178:8100')
+c = wda.Client('http://localhost:8100')
 s = c.session()
 # Show status
 print(c.status())
@@ -83,14 +84,18 @@ def draw_positon(img, body_center, box_center):
     cv2.waitKey(1)
     cv2.destroyAllWindows()
 
+def load_config_json(filename='config.json'):
+    return json.load(open(filename))
+
 
 def main():
+    configs = load_config_json()
     while True:
         img = load_screenshot()
         body_center, body_boundingRect = body_recog(img)
         box_center = box_recog(img, body_boundingRect)
         # draw_positon(img,body_center,box_center)
-        jump(max(abs(box_center[0] - body_center[0]), 80), 2.266)
+        jump(max(abs(box_center[0] - body_center[0]), 80), configs['coefficient'])
         time.sleep(random.uniform(1.1, 1.3))
 
 
