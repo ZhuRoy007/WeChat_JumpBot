@@ -7,7 +7,7 @@ import time
 wda.DEBUG = False  # default False
 wda.HTTP_TIMEOUT = 600.0  # default 60.0 seconds
 
-c = wda.Client('http://169.254.192.178:8100')
+c = wda.Client('http://172.16.42.223:8100')
 s = c.session()
 # Show status
 print(c.status())
@@ -69,7 +69,7 @@ def box_recog(img, body_boundingRect):
 def jump(distance, timefactor):
     press_time = distance * timefactor / 1000.0
     print('Calculated press time:' + str(press_time) + '\n')
-    press_position = [random.randint(200, 300), random.randint(200, 300)]
+    press_position = [random.randint(200, 1100), random.randint(100, 500)]
     s.tap_hold(press_position[0], press_position[1], press_time)
 
 
@@ -79,7 +79,7 @@ def draw_positon(img, body_center, box_center):
     draw_box = cv2.line(draw_body, (box_center[0], box_center[1] - 100), (box_center[0], box_center[1] + 100),
                         (0, 255, 0), 2)
     # cv2.namedWindow('image', cv2.WINDOW_NORMAL)
-    cv2.imshow('image', draw_box)  # 注意参数顺序
+    cv2.imshow('image2', draw_box)  # 注意参数顺序
     cv2.waitKey(1)
     cv2.destroyAllWindows()
 
@@ -89,7 +89,7 @@ def main():
         img = load_screenshot()
         body_center, body_boundingRect = body_recog(img)
         box_center = box_recog(img, body_boundingRect)
-        # draw_positon(img,body_center,box_center)
+        draw_positon(img,body_center,box_center)
         jump(max(abs(box_center[0] - body_center[0]), 80), 2.266)
         time.sleep(random.uniform(1.1, 1.3))
 
