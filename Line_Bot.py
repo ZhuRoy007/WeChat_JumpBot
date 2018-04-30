@@ -4,6 +4,7 @@ import random
 import wda
 import time
 import json
+import template_matching
 
 wda.DEBUG = False  # default False
 wda.HTTP_TIMEOUT = 600.0  # default 60.0 seconds
@@ -90,9 +91,12 @@ def load_config_json(filename='config.json'):
 
 def main():
     configs = load_config_json()
+    template = cv2.imread('/Users/roy/OneDrive/Courses/AI/WeChat Jump Bot/Code/figure_template.png', 0)
     while True:
         img = load_screenshot()
-        body_center, body_boundingRect = body_recog(img)
+        # body_center, body_boundingRect = body_recog(img)
+        _, body_boundingRect = body_recog(img)
+        body_center=template_matching.figure_position(img,template)
         box_center = box_recog(img, body_boundingRect)
         # draw_positon(img,body_center,box_center)
         jump(max(abs(box_center[0] - body_center[0]), 80), configs['coefficient'])
