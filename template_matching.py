@@ -57,27 +57,27 @@ def figure_position(image,template):
 # cv2.waitKey(100000)
 
 # corr_img_show=matching(img,template,norm=True,print=True)
-corr_img=matching(img,template,norm=True,print=False)
-
-from numpy import unravel_index
-corr_img_thre = np.copy(corr_img)
-maxindex=unravel_index(corr_img_thre.argmax(), corr_img_thre.shape)
-corr_img_thre[corr_img_thre < 0.26] = 0
-print(maxindex)
-
-center = [maxindex[0]+5, maxindex[1] + 130]
-line = cv2.line(color, (maxindex[1],maxindex[0]-150), (maxindex[1],maxindex[0]+150), (0, 255, 20), 2)
-line = cv2.line(line, (maxindex[1]-150,maxindex[0]+130), (maxindex[1]+150,maxindex[0]+130), (0, 255, 20), 2)
-
-
-
-fig, axs = plt.subplots(2, 2, figsize=(10, 20))
-axs[0, 0].imshow(img, cmap=plt.cm.gray)
-axs[0, 0].title.set_text('Original Image')
-axs[0, 1].imshow(corr_img,cmap=plt.cm.gray)
-axs[0, 1].title.set_text('Corrlation Image')
-axs[1, 0].imshow(corr_img_thre, cmap=plt.cm.gray)
-axs[1, 0].title.set_text('Peak Point')
-axs[1, 1].imshow(line)
-axs[1, 1].title.set_text('Center Location')
-plt.show()
+# corr_img=matching(img,template,norm=True,print=False)
+#
+# from numpy import unravel_index
+# corr_img_thre = np.copy(corr_img)
+# maxindex=unravel_index(corr_img_thre.argmax(), corr_img_thre.shape)
+# corr_img_thre[corr_img_thre < 0.26] = 0
+# print(maxindex)
+#
+# center = [maxindex[0]+5, maxindex[1] + 130]
+# line = cv2.line(color, (maxindex[1],maxindex[0]-150), (maxindex[1],maxindex[0]+150), (0, 255, 20), 2)
+# line = cv2.line(line, (maxindex[1]-150,maxindex[0]+130), (maxindex[1]+150,maxindex[0]+130), (0, 255, 20), 2)
+#
+#
+#
+# fig, axs = plt.subplots(2, 2, figsize=(10, 20))
+# axs[0, 0].imshow(img, cmap=plt.cm.gray)
+# axs[0, 0].title.set_text('Original Image')
+# axs[0, 1].imshow(corr_img,cmap=plt.cm.gray)
+# axs[0, 1].title.set_text('Corrlation Image')
+# axs[1, 0].imshow(corr_img_thre, cmap=plt.cm.gray)
+# axs[1, 0].title.set_text('Peak Point')
+# axs[1, 1].imshow(line)
+# axs[1, 1].title.set_text('Center Location')
+# plt.show()
